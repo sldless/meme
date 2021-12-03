@@ -2,19 +2,18 @@ import random, logging
 from psaw import PushshiftAPI
 api = PushshiftAPI()
 
-subreddits = ['meme', 'MemeEconomy', 'sfwmemes']
+subreddits = ['memes', 'MemeEconomy', 'sfwmemes']
 
 logging.basicConfig(filename='logger.log', level=logging.DEBUG)
-def gen(limit=100):
+def gen():
   results = list(api.search_submissions(
     subreddit=random.choice(subreddits),
     filter=['url','author', 'title', 'subreddit'],
-    limit=400))
+    limit=1900))
 
-  amount = limit / 26
-  amount2 = amount / 26
+
   try:
-    thing = results[random.randint(int(amount2),int(amount))]
+    thing = results[random.randint(1, len(results))]
   except Exception:
-    thing = results[random.randint(int(amount),int(amount2))]
+    thing = results[random.randint(1, len(results))]
   return thing
